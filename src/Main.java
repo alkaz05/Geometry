@@ -1,11 +1,16 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
-        ArrayList<Triangle> triangles = inputTriangleList(2);
-        System.out.println(triangles);
-        System.out.println(avgPerimeter(triangles));
+    public static void main(String[] args) throws FileNotFoundException {
+       // ArrayList<Triangle> triangles = inputTriangleList(2);
+       // System.out.println(triangles);
+       // System.out.println(avgPerimeter(triangles));
+        ArrayList<Triangle> tr2 = readTriangleList("triangles.txt");
+        System.out.println(tr2);
+        System.out.println(avgPerimeter(tr2));
     }
 
     private static ArrayList<Triangle> inputTriangleList(int size) {
@@ -44,5 +49,26 @@ public class Main {
         }
         p /= triangles.size();
         return p;
+    }
+
+    private static ArrayList<Triangle> readTriangleList(String fileName) throws FileNotFoundException {
+
+        ArrayList<Triangle> triangles = new ArrayList<>();
+        Scanner fscan = new Scanner(new File(fileName));
+        while (fscan.hasNextLine()){        //цикл по всем строчкам файла
+            double x1 = fscan.nextDouble();
+            double y1 = fscan.nextDouble();
+            double x2 = fscan.nextDouble();
+            double y2 = fscan.nextDouble();
+            double x3 = fscan.nextDouble();
+            double y3 = fscan.nextDouble();
+
+            Point p1 = new Point(x1, y1);
+            Point p2 = new Point(x2, y2);
+            Point p3 = new Point(x3, y3);
+            Triangle t = new Triangle(p1, p2, p3);
+            triangles.add(t);
+        }
+        return triangles;
     }
 }
