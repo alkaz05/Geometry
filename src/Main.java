@@ -1,16 +1,22 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
        // ArrayList<Triangle> triangles = inputTriangleList(2);
        // System.out.println(triangles);
        // System.out.println(avgPerimeter(triangles));
-        ArrayList<Triangle> tr2 = readTriangleList("triangles.txt");
-        System.out.println(tr2);
+        List<Triangle> tr2 = readTriangleList("triangles.txt");
+        //System.out.println(tr2);
+        printTriangles(tr2);
         System.out.println(avgPerimeter(tr2));
+
+        //Хотим отсортировать список по  значениям периметра
+        tr2.sort(Comparator.comparingDouble(Triangle::perimeter));
+        printTriangles(tr2);
+        //Map<String, Triangle> map = new HashMap<>();
+        //map.put("Гриша", tr2.getFirst());
     }
 
     private static ArrayList<Triangle> inputTriangleList(int size) {
@@ -41,7 +47,7 @@ public class Main {
         return p1;
     }
 
-    public static double avgPerimeter(ArrayList<Triangle> triangles)
+    public static double avgPerimeter(List<Triangle> triangles)
     {
         double p = 0;
         for (Triangle r:triangles ) {
@@ -70,5 +76,13 @@ public class Main {
             triangles.add(t);
         }
         return triangles;
+    }
+
+    public static void printTriangles(List<Triangle> tr){
+        System.out.println("----------begin-----------");
+        for (Triangle t: tr ) {
+            System.out.println(t + " c периметром "+ t.perimeter());
+        }
+        System.out.println("---------- end -----------");
     }
 }
